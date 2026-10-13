@@ -18,27 +18,27 @@ body{font-family:Arial;background:#fff;color:#222}
 .contact{background:#f39c12;text-align:center;padding:12px}
 .contact a{display:block;color:#000;font-weight:bold;text-decoration:none;margin:5px;font-size:17px}
 .title{color:#0a3d62;text-align:center;margin:20px 0 10px;font-size:22px;font-weight:bold}
-.card{display:flex;align-items:center;gap:12px;margin:10px 12px;border:1px solid #ddd;border-radius:10px;background:#f9f9f9;overflow:hidden}
-.card img{width:130px;height:110px;object-fit:cover;flex-shrink:0;background:#eee}
-.card span{font-weight:bold;color:#0a3d62;font-size:14px;padding:8px;text-transform:capitalize}
+.card{margin:14px 12px;border:1px solid #ddd;border-radius:12px;background:#f9f9f9;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+.card img{width:100%;height:260px;object-fit:cover;display:block;background:#eee}
+.card span{display:block;font-weight:bold;color:#0a3d62;font-size:16px;padding:12px;text-align:center;background:white;text-transform:capitalize}
 .footer{background:#0a3d62;color:white;text-align:center;padding:22px;margin-top:20px}
 </style>
 <script>
 function toggleMenu(){document.getElementById('menu').classList.toggle('show')}
-function cleanName(n){return n.replace('.jpg','').replace('.jpeg','').replace('.png','').replace(/[_-]/g,' ').replace(/\+/g,' ').substring(0,45)}
+function cleanName(n){return n.replace('.jpg','').replace('.jpeg','').replace('.png','').replace(/[_-]/g,' ').replace(/\+/g,' ').substring(0,50)}
 async function loadPhotos(){
   const box=document.getElementById('auto-gallery');
   try{
     const r=await fetch('https://api.github.com/repos/WellingtonCSpainterS/wellingtoncspainters.github.io/contents');
     const files=await r.json();
-    const imgs=files.filter(f=>f.name.match(/\.(jpg|jpeg)$/i)&&!f.name.toLowerCase().includes('logo'));
+    const imgs=files.filter(f=>f.name.match(/\.(jpg|jpeg|png)$/i)&&!f.name.toLowerCase().includes('logo'));
     imgs.sort((a,b)=>a.name.localeCompare(b.name));
     box.innerHTML='';
     imgs.forEach(f=>{
       const d=document.createElement('div');d.className='card';
-      d.innerHTML=`<img src="${f.name}"><span>${cleanName(f.name)}</span>`;box.appendChild(d);
+      d.innerHTML=`<img src="${f.name}" loading="lazy"><span>${cleanName(f.name)}</span>`;box.appendChild(d);
     });
-  }catch(e){box.innerHTML='Loading failed - refresh page';}
+  }catch(e){box.innerHTML='<p style=text-align:center;padding:30px>Loading failed - refresh page</p>';}
 }
 window.onload=loadPhotos;
 </script>
@@ -47,10 +47,10 @@ window.onload=loadPhotos;
 <div class="top-bar"><div><b>Wellington CS Painters</b></div><button onclick="toggleMenu()" style="font-size:30px;background:none;border:none;color:white">☰</button></div>
 <div id="menu"><a href="#home" onclick="toggleMenu()">🏠 Home</a><a href="#services" onclick="toggleMenu()">🎨 Services</a><a href="#contact" onclick="toggleMenu()">📞 Contact</a></div>
 <div class="logo-area" id="home"><img src="logo.jpeg"><h2 style="color:#0a3d62">Wellington CS Painters</h2><p style="color:#666;font-size:12px">Cape Town 7945 | 084 848 8616</p></div>
-<div class="hero"><h1>Professional Painters in Cape Town</h1><p>Interior • Exterior • Roof • Waterproofing</p><a href="#services" class="btn">View Work</a></div>
-<div class="contact" id="contact"><a href="tel:0848488616">📞 084 848 8616</a><a href="https://wa.me/27848488616">💬 WhatsApp</a></div>
-<div class="title" id="services">Our Work - Auto Sorted</div>
-<div id="auto-gallery"><p style="text-align:center;padding:30px">Loading 22 photos...</p></div>
-<div class="footer"><h3>Wellington CS Painters</h3><p>All Cape Town | 084 848 8616<br>Bringing Colour to Life!</p></div>
+<div class="hero"><h1>Professional Painters in Cape Town</h1><p>Interior • Exterior • Roof • Waterproofing</p><a href="#services" class="btn">View Our Work</a></div>
+<div class="contact" id="contact"><a href="tel:0848488616">📞 084 848 8616 Call Now</a><a href="https://wa.me/27848488616">💬 WhatsApp Us</a></div>
+<div class="title" id="services">Our Work - Photo on Top</div>
+<div id="auto-gallery"><p style="text-align:center;padding:30px">Loading your work...</p></div>
+<div class="footer"><h3>Wellington CS Painters</h3><p>All Cape Town Areas | 084 848 8616<br>Bringing Colour to Life!</p></div>
 </body>
 </html>
